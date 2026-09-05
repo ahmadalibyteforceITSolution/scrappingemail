@@ -118,6 +118,18 @@ This repository is configured for deployment on Vercel (`vercel.json` + `api/ind
 3. Import your GitHub repository: `ahmadalibyteforceITSolution/scrappingemail`.
 4. Leave framework preset as default / Other, and click **Deploy**.
 
-> **Note regarding Vercel & Headless Scrapers**:
-> Vercel Serverless Functions have a 10s–60s execution timeout and read-only filesystem (except `/tmp`). For continuous background Puppeteer automation, running locally via `npm start` or hosting on continuous server platforms (such as Render, Railway, or VPS) is recommended.
+## 🚀 Deploying to Render (Recommended for Cloud Puppeteer Scraping)
+
+Render supports continuous web services and Docker containers, allowing Chromium and Puppeteer to run uninterrupted in the cloud.
+
+### How to Deploy on Render:
+1. Go to [Render Dashboard](https://dashboard.render.com/).
+2. Click **"New +"** and select **"Web Service"** (or **"Blueprint"**).
+3. Connect your GitHub repository: `ahmadalibyteforceITSolution/scrappingemail`.
+4. Choose **Docker** as the Runtime (or Render will automatically detect `render.yaml` / `Dockerfile`).
+5. Choose the **Free** instance plan.
+6. Click **Create Web Service**.
+
+Render will automatically build the Docker image with Chromium and start your dashboard server with live scraping enabled!
+
 

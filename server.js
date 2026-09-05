@@ -205,7 +205,7 @@ app.use('/api', router);
 app.use('/', router);
 
 function startServer(portToTry) {
-  const server = app.listen(portToTry, () => {
+  const server = app.listen(portToTry, '0.0.0.0', () => {
     console.log(`====================================================`);
     console.log(` LeadHarvest Pro: Email Scraper Server Running!`);
     console.log(` Dashboard URL: http://localhost:${portToTry}`);

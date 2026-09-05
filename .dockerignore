@@ -1,0 +1,9 @@
+node_modules
+.git
+.gitignore
+.vercel
+exports/*.csv
+exports/*.xlsx
+exports/*.json
+!exports/.gitkeep
+npm-debug.log*
