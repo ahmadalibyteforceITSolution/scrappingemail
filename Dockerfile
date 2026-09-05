@@ -39,8 +39,9 @@ RUN npm install --omit=dev
 # Copy app files
 COPY . .
 
-# Render dynamically injects PORT environment variable
+# Expose ports (3000 for standard, 7860 for Hugging Face Spaces)
 EXPOSE 3000
+EXPOSE 7860
 
 # Start Express server
 CMD ["node", "server.js"]

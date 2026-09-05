@@ -1,3 +1,13 @@
+---
+title: Scrapping Email
+emoji: 📧
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 3000
+pinned: false
+---
+
 # 🚀 Google Business Email Scraper & Lead Generator
 
 A full-stack, automated lead generation tool tailored for **email marketing and B2B outreach**. It queries Google Maps and business websites for any niche and geographic area, extracts verified business emails, phone numbers, and social links, and **automatically downloads clean CSV and Excel files**.
