@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google & LinkedIn Email Scraper & Lead Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Navbar / Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </div>
+        <div>
+          <h1>LeadHarvest <span>Pro</span></h1>
+          <p class="subtitle">Google Business & LinkedIn B2B Email Lead Scraper</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span id="statusBadge" class="badge badge-idle">● Ready</span>
+      </div>
+    </header>
+
+    <main class="main-container">
+      <!-- Search Form Card -->
+      <section class="card config-card">
+        <h2 class="card-title">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          Search & Lead Generation Settings
+        </h2>
+
+        <form id="scrapeForm" class="form-grid">
+          <!-- Platform Selector -->
+          <div class="input-group">
+            <label>Scraping Platform</label>
+            <div class="platform-selector">
+              <label class="platform-option active" data-platform="both">
+                <input type="radio" name="platform" value="both" checked>
+                <div class="platform-card-content">
+                  <div class="platform-title">🌐 Both Platforms (Recommended)</div>
+                  <div class="platform-desc">Google Maps Businesses + LinkedIn Decision Makers</div>
+                </div>
+              </label>
+
+              <label class="platform-option" data-platform="google_maps">
+                <input type="radio" name="platform" value="google_maps">
+                <div class="platform-card-content">
+                  <div class="platform-title">📍 Google Maps</div>
+                  <div class="platform-desc">Local businesses, stores, websites & office emails</div>
+                </div>
+              </label>
+
+              <label class="platform-option" data-platform="linkedin">
+                <input type="radio" name="platform" value="linkedin">
+                <div class="platform-card-content">
+                  <div class="platform-title">💼 LinkedIn</div>
+                  <div class="platform-desc">Founders, CEOs, Realtors, Executives & direct emails</div>
+                </div>
+              </label>
+            </div>
+
+            <!-- LinkedIn Mode & Account Settings -->
+            <div id="linkedinAccountCard" class="linkedin-account-box">
+              <div class="linkedin-box-header">
+                <div class="linkedin-box-title">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/></svg>
+                  <span>LinkedIn Scraping Mode</span>
+                </div>
+                <div class="linkedin-mode-toggle">
+                  <label class="radio-inline">
+                    <input type="radio" name="linkedinMode" value="stealth" checked>
+                    <span>⚡ Stealth Engine (No Login Needed)</span>
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="linkedinMode" value="account">
+                    <span>🔑 Use LinkedIn Account</span>
+                  </label>
+                </div>
+              </div>
+              <div id="linkedinAccountFields" class="linkedin-account-fields hidden">
+                <p class="account-hint">Enter your LinkedIn login credentials or your <code>li_at</code> session cookie to scrape directly inside LinkedIn:</p>
+                <div class="form-two-col">
+                  <div class="input-group">
+                    <label for="liEmail">LinkedIn Email / Phone</label>
+                    <input type="text" id="liEmail" placeholder="your-linkedin@email.com">
+                  </div>
+                  <div class="input-group">
+                    <label for="liPassword">LinkedIn Password</label>
+                    <input type="password" id="liPassword" placeholder="••••••••••••">
+                  </div>
+                </div>
+                <div class="input-group" style="margin-top: 8px;">
+                  <label for="liCookie">Or Session Cookie (<code>li_at</code>) <span style="font-weight: normal; color: #94a3b8;">- Bypasses password & 2FA</span></label>
+                  <input type="text" id="liCookie" placeholder="AQEDAT... (Paste your li_at cookie here)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-two-col">
+            <div class="input-group">
+              <label for="queryInput" id="queryLabel">Business Niche / Job Title</label>
+              <input type="text" id="queryInput" placeholder="e.g. Dentists, Real Estate Agents, CEO, Plumbers" required>
+              <div class="quick-tags">
+                <span>Quick:</span>
+                <button type="button" class="tag-btn" data-val="Real Estate Agents">Real Estate</button>
+                <button type="button" class="tag-btn" data-val="Dentists">Dentists</button>
+                <button type="button" class="tag-btn" data-val="CEO">CEOs / Founders</button>
+                <button type="button" class="tag-btn" data-val="Digital Marketing Agencies">Marketing</button>
+                <button type="button" class="tag-btn" data-val="Plumbing Contractors">Plumbers</button>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="locationInput">Target Location / Area</label>
+              <input type="text" id="locationInput" placeholder="e.g. Miami, FL or New York, NY or London, UK" required>
+              <div class="quick-tags">
+                <span>Quick:</span>
+                <button type="button" class="tag-btn" data-loc="Miami, FL">Miami</button>
+                <button type="button" class="tag-btn" data-loc="New York, NY">New York</button>
+                <button type="button" class="tag-btn" data-loc="Los Angeles, CA">Los Angeles</button>
+                <button type="button" class="tag-btn" data-loc="Austin, TX">Austin</button>
+                <button type="button" class="tag-btn" data-loc="London, UK">London</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-three-col">
+            <div class="input-group">
+              <label for="maxResults">Total Leads to Scrape</label>
+              <select id="maxResults">
+                <option value="10">10 Leads (Fast Test)</option>
+                <option value="20" selected>20 Leads (Standard)</option>
+                <option value="50">50 Leads</option>
+                <option value="100">100 Leads</option>
+                <option value="200">200 Leads (Deep Search)</option>
+                <option value="500">500 Leads (Maximum)</option>
+              </select>
+            </div>
+
+            <div class="input-group" id="emailProviderGroup">
+              <label for="emailProvider">Email Types to Extract</label>
+              <select id="emailProvider">
+                <option value="all" selected>✨ All Email Types (Business, Corporate & Personal)</option>
+                <option value="gmail.com">@gmail.com</option>
+                <option value="outlook.com">@outlook.com / @hotmail.com</option>
+                <option value="yahoo.com">@yahoo.com</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="autoDownloadFormat">Download File Format</label>
+              <select id="autoDownloadFormat">
+                <option value="excel" selected>Excel (.xlsx)</option>
+                <option value="csv">CSV (.csv)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label" title="Automatically downloads CSV or Excel when scraping finishes">
+              <input type="checkbox" id="autoDownloadCheck" checked>
+              <span>⚡ <strong>Auto-download file</strong> directly to your computer when scraping completes</span>
+            </label>
+            <span class="save-note">Auto-saved in: <code>exports/</code></span>
+          </div>
+
+          <div class="action-buttons">
+            <button type="submit" id="startBtn" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Start Lead Scraping
+            </button>
+            <button type="button" id="stopBtn" class="btn btn-danger" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                <rect x="6" y="6" width="12" height="12"></rect>
+              </svg>
+              Stop
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Live Statistics Cards -->
+      <section class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon icon-blue">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="metric-value" id="statFound">0</div>
+            <div class="metric-label">Leads Discovered</div>
+          </div>
+        </div>
+
+        <div class="metric-card highlight-card">
+          <div class="metric-icon icon-green">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div>
+            <div class="metric-value text-green" id="statEmails">0</div>
+            <div class="metric-label">Verified Emails</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon icon-purple">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="metric-value" id="statPhones">0</div>
+            <div class="metric-label">Phone Numbers</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon icon-amber">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="metric-value" id="statWebsites">0</div>
+            <div class="metric-label">Sites / Profiles</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Progress Section -->
+      <section id="progressSection" class="card progress-card hidden">
+        <div class="progress-info">
+          <span id="progressMessage">Scraper in progress...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progressBar" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </section>
+
+      <!-- Results Table Section -->
+      <section class="card results-card">
+        <div class="results-header">
+          <div>
+            <h2 class="card-title">Scraped Leads List (<span id="leadsCount">0</span>)</h2>
+            <p class="subtitle">Harvested leads from Google and LinkedIn with contact details</p>
+          </div>
+          <div class="download-bar">
+            <button id="downloadExcelBtn" class="btn btn-export btn-excel" disabled>
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              Download Excel (.xlsx)
+            </button>
+            <button id="downloadCsvBtn" class="btn btn-export btn-csv" disabled>
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download CSV
+            </button>
+            <button id="copyEmailsBtn" class="btn btn-secondary" disabled>
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy All Emails
+            </button>
+          </div>
+        </div>
+
+        <div class="table-filter">
+          <input type="text" id="tableSearch" placeholder="Filter leads by name, email, platform, phone, or title...">
+        </div>
+
+        <div class="table-responsive">
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Platform</th>
+                <th>Name / Company</th>
+                <th>Primary Email</th>
+                <th>Phone</th>
+                <th>Website / Profile</th>
+                <th>Role / Address</th>
+                <th>Socials</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody">
+              <tr class="empty-row">
+                <td colspan="8">No leads scraped yet. Choose your parameters above and click <strong>Start Lead Scraping</strong>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Live Logs Accordion -->
+      <section class="card logs-card">
+        <details>
+          <summary>
+            <span>Live Activity Console & Scraper Diagnostics</span>
+            <span class="view-tag">Click to expand</span>
+          </summary>
+          <div class="log-terminal" id="logTerminal">
+            <div class="log-line info">Ready to harvest leads.</div>
+          </div>
+        </details>
+      </section>
+
+      <!-- Previous Exports List -->
+      <section class="card past-exports-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-subtitle">📁 Saved Export Files (Folder: <code>exports/</code>)</h3>
+            <p class="subtitle" style="font-size: 0.8rem; margin: 0;">Instant download of past searches or download all combined master leads</p>
+          </div>
+          <div class="export-actions-group">
+            <a href="/api/exports-all/excel" class="btn-sm btn-master-excel" title="Download all leads from all past searches in Excel (.xlsx)">📥 All Leads (.xlsx)</a>
+            <a href="/api/exports-all/csv" class="btn-sm btn-master-csv" title="Download all leads from all past searches in CSV">📥 All Leads (.csv)</a>
+            <button id="refreshFilesBtn" class="btn-sm">↻ Refresh Files</button>
+          </div>
+        </div>
+        <div id="pastFilesList" class="past-files-container">
+          <p class="empty-note">No exported files yet.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
